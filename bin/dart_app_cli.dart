@@ -1,4 +1,4 @@
-import 'package:dart_app/dart_app.dart';
+import 'package:dart_app_cli/dart_app_cli.dart';
 
 void main(List<String> arguments) async {
   createApp(arguments);

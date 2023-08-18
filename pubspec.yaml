@@ -1,5 +1,5 @@
-name: dart_app
-description: A command-line application which creates flutter app with specified dependencies before hand.
+name: dart_app_cli
+description: Creates flutter app with specified dependencies before hand.
 version: 1.0.0
 repository: https://github.com/ankit-apk/dart_cli
 
@@ -15,3 +15,6 @@ dependencies:
 dev_dependencies:
   lints: ^2.0.0
   test: ^1.21.0
+
+executables:
+  dart_app_cli: dart_app_cli
