@@ -1,3 +1,2 @@
-A sample command-line application with an entrypoint in `bin/`, library code
-in `lib/`, and example unit test in `test/`.
+A command-line application which creates flutter app with specified dependencies before hand.
 # dart_cli

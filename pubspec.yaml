@@ -1,7 +1,7 @@
 name: dart_app
-description: A sample command-line application.
+description: A command-line application which creates flutter app with specified dependencies before hand.
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/ankit-apk/dart_cli
 
 environment:
   sdk: ^3.0.6
