@@ -1,6 +1,6 @@
 name: dart_app_cli
 description: Creates flutter app with specified dependencies before hand.
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/ankit-apk/dart_cli
 
 environment:
