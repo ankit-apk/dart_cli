@@ -31,6 +31,9 @@ void createApp(List<String> arguments) async {
 
   await run('flutter create $appName');
 
+  // Add flutter bloc
+  await run('flutter pub add flutter_bloc', workingDirectory: appName);
+
   // Add the specified packages to the generated app
   for (final package in packages) {
     await run('flutter pub add $package', workingDirectory: appName);
@@ -40,12 +43,31 @@ void createApp(List<String> arguments) async {
   final mainFile = File('$appName/lib/main.dart');
   mainFile.writeAsStringSync(_customMainContent);
 
+  // Create necessary folders and files
+  await Directory('$appName/lib/modules/views').create(recursive: true);
+  await Directory('$appName/lib/modules/bloc').create(recursive: true);
+
+  final viewsFolder = Directory('$appName/lib/modules/views');
+  final blocFolder = Directory('$appName/lib/modules/bloc');
+
+  final demoViewFile = File('${viewsFolder.path}/demo_view.dart');
+  final demoBlocFile = File('${blocFolder.path}/demo_bloc.dart');
+  final demoEventFile = File('${blocFolder.path}/demo_event.dart');
+  final demoStateFile = File('${blocFolder.path}/demo_state.dart');
+
+  demoViewFile.writeAsStringSync(_sampleViewContent);
+  demoBlocFile.writeAsStringSync(_sampleBlocContent);
+  demoEventFile.writeAsStringSync(_sampleEventContent);
+  demoStateFile.writeAsStringSync(_sampleStateContent);
+
   print(
       'Flutter app "$appName" with packages $packages generated successfully.');
 }
 
 const _customMainContent = '''
 import 'package:flutter/material.dart';
+
+import 'modules/views/demo_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,13 +83,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CustomScreen(),
+      home: const SampleView(),
     );
   }
 }
+''';
 
-class CustomScreen extends StatelessWidget {
-  const CustomScreen({super.key});
+const _sampleViewContent = '''
+import 'package:flutter/material.dart';
+
+class SampleView extends StatelessWidget {
+  const SampleView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -86,4 +112,35 @@ class CustomScreen extends StatelessWidget {
     );
   }
 }
+''';
+
+const _sampleBlocContent = '''
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'demo_event.dart';
+import 'demo_state.dart';
+
+class SampleBloc extends Bloc<SampleEvent, SampleState> {
+  SampleBloc() : super(SampleInitial()) {
+    on<SampleEvent>((event, emit) {
+      // TODO: implement event handler
+    });
+  }
+}
+''';
+
+const _sampleEventContent = '''
+import 'package:flutter/foundation.dart';
+
+@immutable
+sealed class SampleEvent {}
+''';
+
+const _sampleStateContent = '''
+import 'package:flutter/foundation.dart';
+
+@immutable
+sealed class SampleState {}
+
+final class SampleInitial extends SampleState {}
 ''';
